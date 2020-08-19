@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `charge_amounts` (
   `month` varchar(20) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -53,9 +53,9 @@ CREATE TABLE IF NOT EXISTS `switchs` (
   `teen_month_pay_limit` int(3) unsigned NOT NULL DEFAULT '20000' COMMENT '8-15岁月付费限额，单位：分',
   `young_pay_limit` int(3) unsigned NOT NULL DEFAULT '10000' COMMENT '16-17岁单笔付费限额，单位：分',
   `young_month_pay_limit` int(3) unsigned NOT NULL DEFAULT '40000' COMMENT '16-17 月付费限额，单位：分',
-  `holiday_dates` text NOT NULL COMMENT '每年的法定节假日json',
+  `holiday_dates` text NOT NULL COMMENT '每年的法定节假日json',  -- json数据，参考代码user_play_duration.js:84
   `version` varchar(20) NOT NULL COMMENT '版本'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `user_info` (
   `account_type` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '第三方实名类型，默认0，非第三方实名， 1  =8岁以下 ，2  =8-15岁，  3 =16-17岁， 4 =18+',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `user_play_durations` (
   `last_timestamp` int(11) unsigned NOT NULL COMMENT '最后一次游戏时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -154,3 +154,8 @@ ALTER TABLE `user_play_durations`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--- 插入一条默认数据
+insert into switchs (id, version, holiday_dates) values (1, '1.0', '{"202005":{"01":1},"202010":{"01":1,"02":1,"03":1,"04":1,"05":1,"06":1,"07":1}}');

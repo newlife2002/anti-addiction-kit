@@ -50,10 +50,8 @@ class DashboardController extends Controller {
             let day = helper.getDay();
             try{
                 let holidayJson = JSON.parse(defaultHolidayJson);
-                if(holidayJson[month] != undefined && holidayJson[month].length != 0){
-                    if(holidayJson[month][day] != undefined && holidayJson[month][day].length != 0){
-                        switchs.shiming_user_duration = switchs.shiming_user_holiday_duration;
-                    }
+                if(holidayJson[month] != undefined && holidayJson[month][day] == 1){
+                    switchs.shiming_user_duration = switchs.shiming_user_holiday_duration;
                 }
             }catch(error){
                 this.ctx.logger.error(error.message);
