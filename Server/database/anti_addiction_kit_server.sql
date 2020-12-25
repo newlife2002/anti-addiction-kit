@@ -7,6 +7,11 @@
 -- 服务器版本： 5.6.39-log
 -- PHP Version: 7.2.24
 
+CREATE DATABASE anti_addiction_kit_server;
+USE anti_addiction_kit_server;
+
+
+
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -28,7 +33,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `charge_amounts` (
   `id` int(11) unsigned NOT NULL,
-  `charge_key` varchar(255) NOT NULL COMMENT '累计充值金额key，身份证或者账号',
+  `charge_key` varchar(125) NOT NULL COMMENT '累计充值金额key，身份证或者账号',
   `amount` int(3) unsigned NOT NULL DEFAULT '0' COMMENT '金额',
   `month` varchar(20) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -65,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `switchs` (
 
 CREATE TABLE IF NOT EXISTS `user_info` (
   `id` int(11) unsigned NOT NULL,
-  `user_id` varchar(255) NOT NULL COMMENT '用户 ID',
+  `user_id` varchar(125) NOT NULL COMMENT '用户 ID',
   `identify_state` int(1) unsigned NOT NULL COMMENT '实名状态，0=>未实名，1=>实名,2=>第三方实名',
-  `identify` varchar(255) NOT NULL,
+  `identify` varchar(125) NOT NULL,
   `name` varchar(255) NOT NULL,
   `account_type` int(1) unsigned NOT NULL DEFAULT '0' COMMENT '第三方实名类型，默认0，非第三方实名， 1  =8岁以下 ，2  =8-15岁，  3 =16-17岁， 4 =18+',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -84,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `user_play_durations` (
   `id` int(10) unsigned NOT NULL,
   `day` varchar(10) NOT NULL,
   `duration` int(3) unsigned NOT NULL,
-  `duration_key` varchar(255) NOT NULL,
+  `duration_key` varchar(125) NOT NULL,
   `last_timestamp` int(11) unsigned NOT NULL COMMENT '最后一次游戏时间',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -157,5 +162,4 @@ ALTER TABLE `user_play_durations`
 
 
 
---- 插入一条默认数据
 insert into switchs (id, version, holiday_dates) values (1, '1.0', '{"202005":{"01":1},"202010":{"01":1,"02":1,"03":1,"04":1,"05":1,"06":1,"07":1}}');
